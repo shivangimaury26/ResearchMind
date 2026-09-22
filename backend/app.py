@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 from pypdf import PdfReader
+import re
 
 app = Flask(__name__)
 CORS(app)
@@ -10,7 +11,23 @@ UPLOAD_FOLDER = "uploads"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+def clean_text(text):
+    text = re.sub(r'\s+', ' ', text)
+    return text.strip()
+def chunk_text(text, chunk_size=1000, overlap=200):
+    chunks = []
 
+    start = 0
+
+    while start < len(text):
+        end = start + chunk_size
+        chunk = text[start:end]
+
+        chunks.append(chunk)
+
+        start += chunk_size - overlap
+
+    return chunks
 
 @app.route("/")
 def home():
@@ -41,11 +58,14 @@ def upload_file():
         page_text = page.extract_text()
         if page_text:
             text += page_text + "\n"
+    text = clean_text(text) 
+    chunks = chunk_text(text)       
 
     return jsonify({
         "message": "PDF uploaded and text extracted successfully",
         "filename": file.filename,
-        "text": text
+        "text": text,
+        "chunks": chunks
     })
 
 if __name__ == "__main__":
