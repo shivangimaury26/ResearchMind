@@ -3,9 +3,11 @@ from flask_cors import CORS
 import os
 from pypdf import PdfReader
 import re
+from sentence_transformers import SentenceTransformer
 
 app = Flask(__name__)
 CORS(app)
+model = SentenceTransformer("all-MiniLM-L6-v2")
 
 UPLOAD_FOLDER = "uploads"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
@@ -60,12 +62,14 @@ def upload_file():
             text += page_text + "\n"
     text = clean_text(text) 
     chunks = chunk_text(text)       
+    embeddings = model.encode(chunks).tolist()
 
     return jsonify({
         "message": "PDF uploaded and text extracted successfully",
         "filename": file.filename,
         "text": text,
-        "chunks": chunks
+        "chunks": chunks,
+        "embeddings": embeddings
     })
 
 if __name__ == "__main__":
