@@ -12,12 +12,11 @@ body {
 
 .hero {
     min-height: 85vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
-    text-align: center;
-    padding: 80px 40px;
+    gap: 70px;
+    padding: 70px 80px;
 
     background:
         radial-gradient(circle at 10% 20%, #dbeafe 0%, transparent 25%),
@@ -498,4 +497,132 @@ html {
 
 .about-highlight span {
     font-size: 18px;
+}
+.hero-content {
+    text-align: left;
+}
+
+.hero-buttons {
+    justify-content: flex-start;
+}.hero-content h1 {
+    font-family: "Trebuchet MS", sans-serif;
+    font-size: 64px;
+    font-weight: 800;
+    margin-bottom: 18px;
+
+    background: linear-gradient(135deg, #4f46e5, #7c3aed, #0891b2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.paper-card {
+    transform: rotate(1deg);
+    transition: 0.4s ease;
+}
+
+.paper-card:hover {
+    transform: rotate(0deg) translateY(-8px);
+    box-shadow:
+        0 30px 70px rgba(79, 70, 229, 0.18),
+        0 8px 25px rgba(15, 23, 42, 0.08);
+}.paper-card {
+    transform: rotate(1deg);
+    transition: 0.4s ease;
+}
+
+.paper-card:hover {
+    transform: rotate(0deg) translateY(-8px);
+    box-shadow:
+        0 30px 70px rgba(79, 70, 229, 0.18),
+        0 8px 25px rgba(15, 23, 42, 0.08);
+}.hero {
+    background-image:
+        radial-gradient(rgba(79, 70, 229, 0.08) 1px, transparent 1px),
+        radial-gradient(circle at 10% 20%, #dbeafe 0%, transparent 25%),
+        radial-gradient(circle at 90% 20%, #ede9fe 0%, transparent 25%),
+        radial-gradient(circle at 50% 100%, #cffafe 0%, transparent 30%);
+
+    background-size: 28px 28px, auto, auto, auto;
+}.navbar {
+    padding: 22px 60px;
+    border-bottom: 1px solid #eef2ff;
+    box-shadow: 0 4px 18px rgba(30, 41, 59, 0.04);
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: #312e81;
+}
+
+.nav-links {
+    gap: 35px;
+}
+
+.nav-links a {
+    position: relative;
+    font-weight: 500;
+    transition: 0.25s ease;
+}
+
+.nav-links a:hover {
+    color: #4f46e5;
+}
+.navbar {
+    padding: 22px 60px;
+    background: linear-gradient(90deg, #ecfdf5, #e0f2fe);
+    border-bottom: 1px solid #bae6fd;
+    box-shadow: 0 4px 18px rgba(14, 116, 144, 0.08);
+}
+
+.logo {
+    color: #0f766e;
+}.navbar {
+    padding: 22px 60px;
+    background: linear-gradient(90deg, #ecfdf5, #e0f2fe);
+    border-bottom: 1px solid #bae6fd;
+    box-shadow: 0 4px 18px rgba(14, 116, 144, 0.08);
+}
+
+.logo {
+    color: #0f766e;
+}@media (max-width: 900px) {
+
+    .hero {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 60px 30px;
+        text-align: center;
+    }
+
+    .hero-content {
+        text-align: center;
+    }
+
+    .hero-buttons {
+        justify-content: center;
+    }
+
+    .hero-visual {
+        margin-top: 10px;
+    }
+
+    .paper-card {
+        width: 100%;
+        max-width: 420px;
+        margin: auto;
+    }
+
+    .feature-container {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .feature-card:nth-child(4),
+    .feature-card:nth-child(5) {
+        grid-column: auto;
+    }
+
+    .navbar {
+        padding: 18px 30px;
+    }
 }
