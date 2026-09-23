@@ -4,6 +4,7 @@ import os
 from pypdf import PdfReader
 import re
 from sentence_transformers import SentenceTransformer
+import faiss
 
 app = Flask(__name__)
 CORS(app)
@@ -61,15 +62,19 @@ def upload_file():
         if page_text:
             text += page_text + "\n"
     text = clean_text(text) 
-    chunks = chunk_text(text)       
-    embeddings = model.encode(chunks).tolist()
+    chunks = chunk_text(text)    
+
+    embeddings = model.encode(chunks)
+    index = faiss.IndexFlatL2(embeddings.shape[1])
+    index.add(embeddings)
 
     return jsonify({
         "message": "PDF uploaded and text extracted successfully",
         "filename": file.filename,
         "text": text,
         "chunks": chunks,
-        "embeddings": embeddings
+        "embeddings": embeddings.tolist(),
+        "faiss_vectors": index.ntotal
     })
 
 if __name__ == "__main__":
