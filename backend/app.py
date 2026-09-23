@@ -5,6 +5,7 @@ from pypdf import PdfReader
 import re
 from sentence_transformers import SentenceTransformer
 import faiss
+import json
 
 app = Flask(__name__)
 CORS(app)
@@ -67,6 +68,10 @@ def upload_file():
     embeddings = model.encode(chunks)
     index = faiss.IndexFlatL2(embeddings.shape[1])
     index.add(embeddings)
+    faiss.write_index(index, "vector_store/researchmind.index")
+
+    with open("vector_store/chunks.json", "w", encoding="utf-8") as f:
+        json.dump(chunks, f, ensure_ascii=False, indent=2)
 
     return jsonify({
         "message": "PDF uploaded and text extracted successfully",
