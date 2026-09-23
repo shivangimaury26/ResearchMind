@@ -10,6 +10,8 @@ import json
 app = Flask(__name__)
 CORS(app)
 model = SentenceTransformer("all-MiniLM-L6-v2")
+INDEX_PATH = "vector_store/researchmind.index"
+CHUNKS_PATH = "vector_store/chunks.json"
 
 UPLOAD_FOLDER = "uploads"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
@@ -32,6 +34,24 @@ def chunk_text(text, chunk_size=1000, overlap=200):
         start += chunk_size - overlap
 
     return chunks
+
+def search_similar_chunks(query, top_k=3):
+    index = faiss.read_index(INDEX_PATH)
+
+    with open(CHUNKS_PATH, "r", encoding="utf-8") as f:
+        chunks = json.load(f)
+
+    query_embedding = model.encode([query])
+
+    distances, indices = index.search(query_embedding, top_k)
+
+    results = []
+
+    for i in indices[0]:
+        if i < len(chunks):
+            results.append(chunks[i])
+
+    return results    
 
 @app.route("/")
 def home():
@@ -81,6 +101,21 @@ def upload_file():
         "embeddings": embeddings.tolist(),
         "faiss_vectors": index.ntotal
     })
+@app.route("/search", methods=["POST"])
+def search():
+    data = request.get_json()
+
+    if not data or "query" not in data:
+        return jsonify({"error": "Query is required"}), 400
+
+    query = data["query"]
+
+    results = search_similar_chunks(query)
+
+    return jsonify({
+        "query": query,
+        "results": results
+    })    
 
 if __name__ == "__main__":
     app.run(debug=True)
