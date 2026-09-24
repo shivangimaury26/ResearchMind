@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keywords - ResearchMind</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">ResearchMind</div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#features">Features</a>
+            <a href="index.html#about">About</a>
+        </div>
+    </nav>
+
+    <main class="keywords-section">
+
+        <div class="keywords-header">
+            <span class="hero-badge">✦ AI-Powered Keywords</span>
+
+            <h1>Research Keywords</h1>
+
+            <p>
+                Discover the important keywords and concepts
+                identified from your research paper.
+            </p>
+        </div>
+
+        <div class="keywords-paper">
+
+            <div class="keywords-file-icon">📄</div>
+
+            <div>
+                <span>Current Research Paper</span>
+                <h2 id="keywords-paper-name">Research Paper.pdf</h2>
+            </div>
+
+        </div>
+
+        <div class="keywords-box">
+
+            <div class="keywords-box-header">
+                <div class="keywords-icon">🔑</div>
+
+                <div>
+                    <h2>Important Keywords</h2>
+                    <p>AI-identified keywords from your research paper</p>
+                </div>
+            </div>
+
+            <div class="keywords-placeholder">
+
+                <div class="keywords-placeholder-icon">
+                    🔑
+                </div>
+
+                <h3>Keywords will appear here</h3>
+
+                <p>
+                    Once your research paper is processed by the AI,
+                    the important keywords and concepts will be displayed
+                    in this section.
+                </p>
+
+            </div>
+
+        </div>
+
+        <button class="back-dashboard"
+            onclick="window.location.href='dashboard.html'">
+            ← Back to Dashboard
+        </button>
+
+    </main>
+
+    <script>
+        const paperName = localStorage.getItem("researchPaperName");
+
+        if (paperName) {
+            document.getElementById("keywords-paper-name").textContent = paperName;
+        }
+    </script>
+
+</body>
+</html>

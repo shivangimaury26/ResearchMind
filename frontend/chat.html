@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with Paper - ResearchMind</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">ResearchMind</div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#features">Features</a>
+            <a href="index.html#about">About</a>
+        </div>
+    </nav>
+
+    <main class="chat-section">
+
+        <div class="chat-header">
+            <span class="hero-badge">✦ AI Research Assistant</span>
+
+            <h1>Chat with Your Paper</h1>
+
+            <p>
+                Ask questions about your research paper
+                and get AI-powered answers based on its content.
+            </p>
+        </div>
+
+        <div class="chat-paper">
+
+            <div class="chat-file-icon">📄</div>
+
+            <div>
+                <span>Current Research Paper</span>
+                <h2 id="chat-paper-name">Research Paper.pdf</h2>
+            </div>
+
+        </div>
+
+        <div class="chat-box">
+
+            <div class="chat-box-header">
+
+                <div class="chat-icon">💬</div>
+
+                <div>
+                    <h2>Research Paper Assistant</h2>
+                    <p>Ask anything about your uploaded paper</p>
+                </div>
+
+            </div>
+
+            <div class="chat-messages">
+
+                <div class="chat-welcome">
+                    <div class="chat-welcome-icon">✦</div>
+
+                    <h3>Start a Conversation</h3>
+
+                    <p>
+                        Ask a question about the research paper.
+                        AI-generated answers will appear here.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="chat-input-area">
+
+                <input
+                    type="text"
+                    id="chat-input"
+                    placeholder="Ask a question about your paper..."
+                >
+
+                <button id="send-chat">
+                    Send →
+                </button>
+
+            </div>
+
+        </div>
+
+        <button class="back-dashboard"
+            onclick="window.location.href='dashboard.html'">
+            ← Back to Dashboard
+        </button>
+
+    </main>
+
+    <script>
+        const paperName = localStorage.getItem("researchPaperName");
+
+        if (paperName) {
+            document.getElementById("chat-paper-name").textContent = paperName;
+        }
+    </script>
+
+</body>
+</html>

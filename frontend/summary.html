@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper Summary - ResearchMind</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">ResearchMind</div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#features">Features</a>
+            <a href="index.html#about">About</a>
+        </div>
+    </nav>
+
+
+    <main class="summary-section">
+
+        <div class="summary-header">
+
+            <span class="hero-badge">✦ AI-Powered Summary</span>
+
+            <h1>Paper Summary</h1>
+
+            <p>
+                Get a clear and concise understanding of your
+                research paper with AI-powered summarization.
+            </p>
+
+        </div>
+
+
+        <div class="summary-paper">
+
+            <div class="summary-file-icon">
+                📄
+            </div>
+
+            <div>
+                <span>Current Research Paper</span>
+                <h2 id="summary-paper-name">Research Paper.pdf</h2>
+            </div>
+
+        </div>
+
+
+        <div class="summary-box">
+
+            <div class="summary-box-header">
+                <div class="summary-icon">📝</div>
+
+                <div>
+                    <h2>Research Summary</h2>
+                    <p>AI-generated summary of your research paper</p>
+                </div>
+            </div>
+
+
+            <div class="summary-placeholder">
+
+                <div class="placeholder-icon">
+                    ✦
+                </div>
+
+                <h3>Summary will appear here</h3>
+
+                <p>
+                    Once the research paper is processed by the AI,
+                    its important points and key findings will be
+                    displayed in this section.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <button class="back-dashboard" onclick="window.location.href='dashboard.html'">
+            ← Back to Dashboard
+        </button>
+
+    </main>
+
+
+    <script>
+        const paperName = localStorage.getItem("researchPaperName");
+
+        if (paperName) {
+            document.getElementById("summary-paper-name").textContent = paperName;
+        }
+    </script>
+
+</body>
+</html>

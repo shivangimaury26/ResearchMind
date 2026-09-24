@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper Comparison - ResearchMind</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">ResearchMind</div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#features">Features</a>
+            <a href="index.html#about">About</a>
+        </div>
+    </nav>
+
+    <main class="comparison-section">
+
+        <div class="comparison-header">
+
+            <span class="hero-badge">✦ AI-Powered Comparison</span>
+
+            <h1>Compare Research Papers</h1>
+
+            <p>
+                Compare research papers and understand their
+                similarities, differences and key findings.
+            </p>
+
+        </div>
+
+
+        <div class="comparison-upload-grid">
+
+            <div class="comparison-paper-card">
+
+                <div class="comparison-card-top">
+                    <div class="comparison-file-icon">📄</div>
+
+                    <div>
+                        <span>Paper 1</span>
+                        <h2 id="paper-one-name">Research Paper.pdf</h2>
+                    </div>
+                </div>
+
+                <div class="comparison-status">
+                    ✓ Current paper selected
+                </div>
+
+            </div>
+
+
+            <div class="comparison-vs">
+                <span>VS</span>
+            </div>
+
+
+            <div class="comparison-paper-card second-paper">
+
+                <div class="comparison-card-top">
+                    <div class="comparison-file-icon">📄</div>
+
+                    <div>
+                        <span>Paper 2</span>
+                        <h2>Upload Another Paper</h2>
+                    </div>
+                </div>
+
+                <label for="comparison-file" class="comparison-upload-btn">
+                    + Choose PDF
+                </label>
+
+                <input
+                    type="file"
+                    id="comparison-file"
+                    accept=".pdf"
+                >
+
+                <p class="comparison-file-name">
+                    No second paper selected
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="comparison-result-box">
+
+            <div class="comparison-result-header">
+
+                <div class="comparison-result-icon">🔄</div>
+
+                <div>
+                    <h2>Comparison Results</h2>
+                    <p>
+                        AI-generated comparison of the selected papers
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="comparison-placeholder">
+
+                <div class="comparison-placeholder-icon">
+                    🔄
+                </div>
+
+                <h3>Comparison will appear here</h3>
+
+                <p>
+                    Upload a second research paper to compare
+                    methodology, findings, concepts and other
+                    important aspects.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <button class="back-dashboard"
+            onclick="window.location.href='dashboard.html'">
+            ← Back to Dashboard
+        </button>
+
+    </main>
+
+
+    <script>
+
+        const currentPaper =
+            localStorage.getItem("researchPaperName");
+
+        if (currentPaper) {
+            document.getElementById("paper-one-name").textContent =
+                currentPaper;
+        }
+
+
+        const comparisonFile =
+            document.getElementById("comparison-file");
+
+        const comparisonFileName =
+            document.querySelector(".comparison-file-name");
+
+
+        comparisonFile.addEventListener("change", function () {
+
+            const file = this.files[0];
+
+            if (!file) return;
+
+            if (file.type !== "application/pdf") {
+                alert("Please select a PDF file.");
+                this.value = "";
+                return;
+            }
+
+            if (file.size > 10 * 1024 * 1024) {
+                alert("File size must be less than 10 MB.");
+                this.value = "";
+                return;
+            }
+
+            comparisonFileName.textContent =
+                "✓ " + file.name;
+
+        });
+
+    </script>
+
+</body>
+</html>

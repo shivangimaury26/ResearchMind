@@ -57,8 +57,21 @@ if (pdfFile) {
             ✦ Analyze Research Paper
         </button>
     `;
+        const analyzeBtn = fileInfo.querySelector(".analyze-btn");
+
+    analyzeBtn.addEventListener("click", function () {
+    analyzeBtn.classList.add("loading");
+    analyzeBtn.innerHTML = "Analyzing Paper...";
+
+    localStorage.setItem("researchPaperName", file.name);
+
+    setTimeout(function () {
+        window.location.href = "dashboard.html";
+    }, 1500);
+});
 
     pdfFile.parentElement.appendChild(fileInfo);
+
 });
 
     });

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - ResearchMind</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="logo">ResearchMind</div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#features">Features</a>
+            <a href="index.html#about">About</a>
+        </div>
+    </nav>
+
+
+    <!-- DASHBOARD -->
+    <main class="dashboard-section">
+
+        <div class="dashboard-header">
+
+            <div>
+                <span class="hero-badge">✦ Research Workspace</span>
+
+                <h1>Your Research Dashboard</h1>
+
+                <p>
+                    Explore your research paper, generate insights
+                    and understand your paper with AI.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- PAPER CARD -->
+        <div class="paper-card">
+
+            <div class="paper-icon">
+                📄
+            </div>
+
+            <div class="paper-details">
+                <span>Current Research Paper</span>
+
+                <h2 id="research-paper-name">Research Paper.pdf</h2>
+
+                <p>Ready for AI-powered analysis</p>
+            </div>
+
+        </div>
+
+
+        <!-- FEATURE CARDS -->
+        <div class="dashboard-grid">
+
+            <div class="dashboard-card">
+                <div class="dashboard-card-icon">📝</div>
+
+                <h3>Paper Summary</h3>
+
+                <p>
+                    Get a clear and concise summary of your
+                    research paper.
+                </p>
+
+               <a href="./summary.html" class="dashboard-summary-link">
+    View Summary →
+</a>
+            </div>
+
+
+            <div class="dashboard-card">
+                <div class="dashboard-card-icon">🔑</div>
+
+                <h3>Keywords</h3>
+
+                <p>
+                    Discover the important keywords and concepts
+                    from your research paper.
+                </p>
+
+                <a href="./keywords.html" class="dashboard-summary-link">
+    View Keywords →
+</a>
+            </div>
+
+
+            <div class="dashboard-card">
+                <div class="dashboard-card-icon">🔍</div>
+
+                <h3>Research Gap</h3>
+
+                <p>
+                    Identify possible research gaps and areas
+                    that need further study.
+                </p>
+
+                <a href="./research-gap.html" class="dashboard-summary-link">
+    Find Research Gap →
+</a>
+            </div>
+
+
+            <div class="dashboard-card">
+                <div class="dashboard-card-icon">💬</div>
+
+                <h3>Chat with Paper</h3>
+
+                <p>
+                    Ask questions and get answers based on
+                    your uploaded research paper.
+                </p>
+
+                <a href="./chat.html" class="dashboard-summary-link">
+    Start Chat →
+</a>
+            </div>
+
+
+            <div class="dashboard-card">
+                <div class="dashboard-card-icon">🔄</div>
+
+                <h3>Paper Comparison</h3>
+
+                <p>
+                    Compare research papers and understand
+                    their similarities and differences.
+                </p>
+
+                <a href="./comparison.html" class="dashboard-summary-link">
+    Compare Papers →
+</a>
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <script src="js/script.js"></script>
+    <script>
+    const paperName = localStorage.getItem("researchPaperName");
+
+    if (paperName) {
+        document.getElementById("research-paper-name").textContent = paperName;
+    }
+</script>
+
+</body>
+
+</html>

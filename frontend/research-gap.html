@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Gap - ResearchMind</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">ResearchMind</div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#features">Features</a>
+            <a href="index.html#about">About</a>
+        </div>
+    </nav>
+
+    <main class="gap-section">
+
+        <div class="gap-header">
+
+            <span class="hero-badge">✦ AI-Powered Research Analysis</span>
+
+            <h1>Research Gap Finder</h1>
+
+            <p>
+                Identify possible research gaps and areas
+                that may need further investigation.
+            </p>
+
+        </div>
+
+
+        <div class="gap-paper">
+
+            <div class="gap-file-icon">📄</div>
+
+            <div>
+                <span>Current Research Paper</span>
+                <h2 id="gap-paper-name">Research Paper.pdf</h2>
+            </div>
+
+        </div>
+
+
+        <div class="gap-box">
+
+            <div class="gap-box-header">
+
+                <div class="gap-icon">🔍</div>
+
+                <div>
+                    <h2>Research Gap Analysis</h2>
+                    <p>
+                        AI-identified gaps and possible areas
+                        for further research
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="gap-placeholder">
+
+                <div class="gap-placeholder-icon">
+                    🔍
+                </div>
+
+                <h3>Research gaps will appear here</h3>
+
+                <p>
+                    Once your research paper is processed by the AI,
+                    possible limitations, unexplored areas and
+                    opportunities for further research will be
+                    displayed here.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <button class="back-dashboard"
+            onclick="window.location.href='dashboard.html'">
+            ← Back to Dashboard
+        </button>
+
+    </main>
+
+
+    <script>
+        const paperName = localStorage.getItem("researchPaperName");
+
+        if (paperName) {
+            document.getElementById("gap-paper-name").textContent = paperName;
+        }
+    </script>
+
+</body>
+</html>
