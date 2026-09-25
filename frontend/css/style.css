@@ -1707,7 +1707,7 @@ html {
     radial-gradient(circle at 10% 15%, rgba(251, 207, 232, 0.65), transparent 32%),
     radial-gradient(circle at 90% 20%, rgba(221, 214, 254, 0.75), transparent 32%),
     linear-gradient(135deg, #fff9fc, #f7f3ff);
-
+}
 .keywords-header {
     max-width: 1050px;
     margin: 0 auto 35px;
