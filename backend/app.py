@@ -6,6 +6,12 @@ import re
 from sentence_transformers import SentenceTransformer
 import faiss
 import json
+from google import genai
+from dotenv import load_dotenv
+
+load_dotenv()
+
+client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 app = Flask(__name__)
 CORS(app)
@@ -115,6 +121,52 @@ def search():
     return jsonify({
         "query": query,
         "results": results
+    })    
+
+@app.route("/ask", methods=["POST"])
+def ask():
+    data = request.get_json()
+
+    if not data or "question" not in data:
+        return jsonify({"error": "Question is required"}), 400
+
+    question = data["question"]
+
+    # Find relevant research paper chunks
+    results = search_similar_chunks(question)
+
+    if not results:
+        return jsonify({
+            "answer": "I could not find relevant information in the uploaded research paper."
+        })
+
+    context = "\n\n".join(results)
+
+    prompt = f"""
+You are ResearchMind, an AI research paper assistant.
+
+Answer the user's question using ONLY the research paper context provided below.
+Do not invent information that is not present in the context.
+If the answer cannot be found in the context, clearly say that the information is not available in the provided paper.
+
+Research Paper Context:
+{context}
+
+User Question:
+{question}
+
+Give a clear and concise answer.
+"""
+
+    response = client.models.generate_content(
+        model="gemini-3.8-flash",
+        contents=prompt
+    )
+
+    return jsonify({
+        "question": question,
+        "answer": response.text,
+        "sources": results
     })    
 
 if __name__ == "__main__":
