@@ -1,3 +1,5 @@
 Flask
 flask-cors
 pypdf
+google-genai
+python-dotenv
