@@ -168,6 +168,54 @@ Give a clear and concise answer.
         "answer": response.text,
         "sources": results
     })    
+@app.route("/summary", methods=["GET"])
+def summary():
+        try:
+            with open(CHUNKS_PATH, "r", encoding="utf-8") as f:
+                chunks = json.load(f)
+
+            if not chunks:
+                return jsonify({
+                    "error": "No research paper has been uploaded yet."
+                }), 400
+
+            context = "\n\n".join(chunks)
+
+            prompt = f"""
+You are ResearchMind, an AI research paper assistant.
+
+Create a clear and structured summary of the research paper using ONLY
+the research paper context provided below.
+
+Do not invent or add information that is not present in the paper.
+
+Include these sections:
+1. Research Topic
+2. Objective
+3. Methodology
+4. Key Findings
+5. Conclusion
+
+Keep the language simple, clear and suitable for a student.
+
+Research Paper Context:
+{context}
+"""
+
+            response = client.models.generate_content(
+                model="gemini-3.5-flash-lite",
+                contents=prompt
+            )
+
+            return jsonify({
+                "summary": response.text
+            })
+
+        except Exception as e:
+            return jsonify({
+                "error": "Unable to generate summary.",
+                "details": str(e)
+            }), 500
 
 if __name__ == "__main__":
     app.run(debug=True)

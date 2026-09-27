@@ -89,12 +89,54 @@
 
 
     <script>
-        const paperName = localStorage.getItem("researchPaperName");
+    const paperName = localStorage.getItem("researchPaperName");
 
-        if (paperName) {
-            document.getElementById("summary-paper-name").textContent = paperName;
+    if (paperName) {
+        document.getElementById("summary-paper-name").textContent = paperName;
+    }
+
+    const summaryPlaceholder = document.querySelector(".summary-placeholder");
+
+    async function loadSummary() {
+        try {
+            summaryPlaceholder.innerHTML = `
+                <div class="placeholder-icon">✦</div>
+                <h3>Generating Summary...</h3>
+                <p>Please wait while ResearchMind analyzes your paper.</p>
+            `;
+
+            const response = await fetch("http://127.0.0.1:5000/summary", {
+                method: "GET"
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                summaryPlaceholder.innerHTML = `
+                    <h3>AI-Generated Summary</h3>
+                    <p>${data.summary.replace(/\n/g, "<br>")}</p>
+                `;
+            } else {
+                summaryPlaceholder.innerHTML = `
+                    <div class="placeholder-icon">!</div>
+                    <h3>Unable to Generate Summary</h3>
+                    <p>${data.error || "Something went wrong."}</p>
+                `;
+            }
+
+        } catch (error) {
+            summaryPlaceholder.innerHTML = `
+                <div class="placeholder-icon">!</div>
+                <h3>Backend Connection Error</h3>
+                <p>Please make sure the ResearchMind backend server is running.</p>
+            `;
+
+            console.error(error);
         }
-    </script>
+    }
+
+    loadSummary();
+</script>
 
 </body>
 </html>
