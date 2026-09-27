@@ -95,11 +95,75 @@
     </main>
 
     <script>
-        const paperName = localStorage.getItem("researchPaperName");
+    const paperName = localStorage.getItem("researchPaperName");
 
-        if (paperName) {
-            document.getElementById("chat-paper-name").textContent = paperName;
+    if (paperName) {
+        document.getElementById("chat-paper-name").textContent = paperName;
+    }
+
+    const chatInput = document.getElementById("chat-input");
+    const sendButton = document.getElementById("send-chat");
+    const chatMessages = document.querySelector(".chat-messages");
+
+    function addMessage(message, type) {
+        const messageDiv = document.createElement("div");
+
+        messageDiv.className = type === "user"
+            ? "chat-message user-message"
+            : "chat-message ai-message";
+
+        messageDiv.textContent = message;
+
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    async function askResearchMind() {
+        const question = chatInput.value.trim();
+
+        if (!question) {
+            return;
         }
+
+        addMessage(question, "user");
+        chatInput.value = "";
+
+        try {
+            const response = await fetch("http://127.0.0.1:5000/ask", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    question: question
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                addMessage(data.answer, "ai");
+            } else {
+                addMessage(data.error || "Something went wrong.", "ai");
+            }
+
+        } catch (error) {
+            addMessage(
+                "Unable to connect to ResearchMind backend. Please make sure the backend server is running.",
+                "ai"
+            );
+
+            console.error(error);
+        }
+    }
+
+    sendButton.addEventListener("click", askResearchMind);
+
+    chatInput.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            askResearchMind();
+        }
+    });
     </script>
 
 </body>
