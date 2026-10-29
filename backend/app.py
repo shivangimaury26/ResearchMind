@@ -219,5 +219,56 @@ Research Paper Context:
                 "details": str(e)
             }), 500
 
+@app.route("/research-gap", methods=["GET"])
+def research_gap():
+    try:
+        with open(CHUNKS_PATH, "r", encoding="utf-8") as f:
+            chunks = json.load(f)
+
+        if not chunks:
+            return jsonify({
+                "error": "No research paper has been uploaded yet."
+            }), 400
+
+        context = "\n\n".join(chunks)
+
+        prompt = f"""
+You are ResearchMind, an AI research paper assistant.
+
+Analyze the research paper context below and identify possible research gaps.
+
+Include these sections:
+1. Existing Research Overview
+2. Possible Research Gaps
+3. Unanswered Research Questions
+4. Future Research Suggestions
+
+Base your suggestions only on the provided context.
+Do not claim that something has never been researched unless the paper
+provides evidence for that claim.
+Clearly label possible gaps as suggestions that need further verification.
+Use simple, clear language.
+
+Research Paper Context:
+{context}
+"""
+
+        response = client.models.generate_content(
+            model="gemini-3.5-flash-lite",
+            contents=prompt
+        )
+
+        return jsonify({
+            "research_gaps": response.text
+        })
+
+    except Exception as e:
+        return jsonify({
+            "error": "Unable to find research gaps.",
+            "details": str(e)
+        }), 500
+
+
+
 if __name__ == "__main__":
     app.run(debug=True)
