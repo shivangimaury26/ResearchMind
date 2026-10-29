@@ -16,10 +16,12 @@ client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 app = Flask(__name__)
 CORS(app)
 model = SentenceTransformer("all-MiniLM-L6-v2")
-INDEX_PATH = "vector_store/researchmind.index"
-CHUNKS_PATH = "vector_store/chunks.json"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-UPLOAD_FOLDER = "uploads"
+INDEX_PATH = os.path.join(BASE_DIR, "vector_store", "researchmind.index")
+CHUNKS_PATH = os.path.join(BASE_DIR, "vector_store", "chunks.json")
+
+UPLOAD_FOLDER = os.path.join(os.path.dirname(BASE_DIR), "uploads")
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
