@@ -268,6 +268,50 @@ Research Paper Context:
             "details": str(e)
         }), 500
 
+@app.route("/keywords", methods=["GET"])
+def extract_keywords():
+    try:
+        with open(CHUNKS_PATH, "r", encoding="utf-8") as f:
+            chunks = json.load(f)
+
+        if not chunks:
+            return jsonify({
+                "error": "No research paper has been uploaded yet."
+            }), 400
+
+        context = "\n\n".join(chunks)
+
+        prompt = f"""
+You are ResearchMind, an AI research paper assistant.
+
+Extract the most important keywords from the research paper below.
+
+Rules:
+1. Provide 10 to 15 important keywords.
+2. Prefer important topics, concepts and technical terms.
+3. Avoid unnecessary common words.
+4. Give a short, simple explanation for each keyword.
+5. Use only information from the provided paper.
+
+Research Paper:
+{context}
+"""
+
+        response = client.models.generate_content(
+            model="gemini-3.5-flash-lite",
+            contents=prompt
+        )
+
+        return jsonify({
+            "keywords": response.text
+        })
+
+    except Exception as e:
+        return jsonify({
+            "error": "Unable to extract keywords.",
+            "details": str(e)
+        }), 500
+
 
 
 if __name__ == "__main__":
