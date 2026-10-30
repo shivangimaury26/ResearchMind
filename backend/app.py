@@ -96,11 +96,10 @@ def upload_file():
     embeddings = model.encode(chunks)
     index = faiss.IndexFlatL2(embeddings.shape[1])
     index.add(embeddings)
-    faiss.write_index(index, "vector_store/researchmind.index")
+    faiss.write_index(index, INDEX_PATH)
 
-    with open("vector_store/chunks.json", "w", encoding="utf-8") as f:
+    with open(CHUNKS_PATH, "w", encoding="utf-8") as f:
         json.dump(chunks, f, ensure_ascii=False, indent=2)
-
     return jsonify({
         "message": "PDF uploaded and text extracted successfully",
         "filename": file.filename,
